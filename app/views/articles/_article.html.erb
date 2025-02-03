@@ -7,4 +7,14 @@
     <strong class="block font-medium mb-1">Body:</strong>
     <%= article.body %>
   </p>
+  <% if article.images.attached? %>
+    <div class="my-5">
+      <strong class="block font-medium mb-1">Images:</strong>
+      <div class="flex flex-wrap">
+        <% article.images.each do |image| %>
+          <%= image_tag image, class: "w-96 h-64 object-cover m-1 rounded-lg border-[0.5px] border-gray-400" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
