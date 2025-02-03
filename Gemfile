@@ -63,3 +63,5 @@ group :test do
 end
 
 gem "dartsass-rails", "~> 0.5.1"
+
+gem "font-awesome-sass", "~> 6.7"
