@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./app/views/**/*.html.erb",
   ],
+  darkMode: 'media',
   theme: {
     extend: {},
   },
