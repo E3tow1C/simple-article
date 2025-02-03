@@ -69,3 +69,5 @@ gem "font-awesome-sass", "~> 6.7"
 gem "tailwindcss-ruby", "~> 4.0"
 
 gem "tailwindcss-rails", "~> 4.0"
+
+gem "aws-sdk-s3", "~> 1.179"
