@@ -34,7 +34,7 @@
               <%= image_tag image, class: "rounded-md w-64 h-64 object-cover" %>
               <button type="button" 
                       data-action="article#removeNewImage"
-                      data-image-id="<%= image.id %>"
+                      data-filename="<%= image.filename %>"
                       class="z-10 absolute -top-1 right-0 text-red-400 text-2xl p-1 cursor-pointer hover:scale-110 transition-all duration-300">
                 <i class="fa-solid fa-circle-xmark"></i>
               </button>
