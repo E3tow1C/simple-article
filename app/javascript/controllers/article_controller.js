@@ -1,16 +1,43 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["preview", "input"]
+  static targets = ["preview", "input", "topic", "body", "submit"]
   static existingImages = []
+  static values = {
+    hasErrors: Boolean,
+  }
 
   connect() {
+    console.log("Article is erorrs: ", this.hasErrorsValue)
     if (this.hasInputTarget) {
       this.inputTarget.addEventListener("change", this.handleNewImages.bind(this))
     }
+
+    if (!this.hasErrorsValue) {
+      this.constructor.existingImages = []
+    } else {
+      this.recreatePreviewsFromExistingImages()
+    }
   }
 
-  disconnect() {
+  recreatePreviewsFromExistingImages() {
+    this.constructor.existingImages.forEach((file, index) => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        const preview = this.createPreviewElement(reader.result, index)
+        this.previewTarget.appendChild(preview)
+      }
+      reader.readAsDataURL(file)
+    })
+
+    // Update the input's FileList to include existing files
+    const dt = new DataTransfer()
+    this.constructor.existingImages.forEach(file => dt.items.add(file))
+    this.inputTarget.files = dt.files
+
+  }
+
+  handleSubmitSuccess() {
     this.constructor.existingImages = []
     console.log("CLEAR!: the existing files: ", this.constructor.existingImages)
   }
