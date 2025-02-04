@@ -2,7 +2,6 @@
   <% if article.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
       <ul class="list-disc ml-6">
         <% article.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,22 +9,18 @@
       </ul>
     </div>
   <% end %>
-
   <div class="my-5">
     <%= form.label :topic %>
     <%= form.text_field :topic, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": article.errors[:topic].none?, "border-red-400 focus:outline-red-600": article.errors[:topic].any?}] %>
   </div>
-
   <div class="my-5">
     <%= form.label :body %>
     <%= form.textarea :body, rows: 4, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": article.errors[:body].none?, "border-red-400 focus:outline-red-600": article.errors[:body].any?}] %>
   </div>
-
   <div class="my-5" data-controller="article">
     <%= form.label :images %>
     <%= form.file_field :images, multiple: true, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": article.errors[:images].none?, "border-red-400 focus:outline-red-600": article.errors[:images].any?}] %>
   </div>
-
   <div class="my-5">
     <div id="image-preview" class="border rounded-md p-3 mt-2 w-full overflow-x-auto">
       <div id="preview-container" class="flex gap-2 min-w-min">
@@ -33,11 +28,12 @@
           <% article.images.each do |image| %>
             <%= image_tag image, class: "rounded-md w-64 h-64" %>
           <% end %>
+        <% else %>
+          <p>No images uploaded</p>
         <% end %>
       </div>
     </div>
   </div>
-
   <div class="inline">
     <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>
