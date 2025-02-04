@@ -1,6 +1,6 @@
 <%= form_with(model: article, class: "contents", data: { controller: "article", article_has_errors_value: article.errors.any? }) do |form| %>
   <% if article.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-400 px-3 py-2 font-medium rounded-md mt-3 dark:bg-gray-800">
       <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
       <ul class="list-disc ml-6">
         <% article.errors.each do |error| %>
@@ -26,18 +26,19 @@
         class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", 
                 {"border-gray-400 focus:outline-blue-600": article.errors[:images].none?, 
                  "border-red-400 focus:outline-red-600": article.errors[:images].any?}] %>
-    <div class="border rounded-md p-3 mt-2 w-full overflow-x-auto">
+    <div class="rounded-md p-3 mt-2 w-full overflow-x-auto">
       <div data-article-target="preview" class="flex gap-2 min-w-min">
         <% if article.persisted? && article.images.attached? %>
           <% article.images.each do |image| %>
-            <div class="image-preview-wrapper relative">
+            <div class="image-preview-wrapper relative mt-4">
               <%= image_tag image, class: "rounded-md w-64 h-64 object-cover" %>
               <button type="button" 
-                      data-action="article#removeImage"
+                      data-action="article#removeNewImage"
                       data-image-id="<%= image.id %>"
-                      class="absolute top-1 right-1 text-white text-2xl p-2 cursor-pointer hover:scale-110 transition-all duration-300">
+                      class="z-10 absolute -top-1 right-0 text-red-400 text-2xl p-1 cursor-pointer hover:scale-110 transition-all duration-300">
                 <i class="fa-solid fa-circle-xmark"></i>
               </button>
+              <div class="absolute top-0 right-0 bg-white opacity-90 p-4 rounded-bl-md rounded-tr-md"></div>
             </div>
           <% end %>
         <% end %>
