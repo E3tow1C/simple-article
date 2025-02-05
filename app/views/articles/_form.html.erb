@@ -45,7 +45,31 @@
       </div>
     </div>
   </div>
-  <div class="inline">
-    <%= form.submit data: { article_target: "submit" }, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+
+  <%# <div class="inline"> %>
+  <%# form.submit data: { article_target: "submit" }, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <%# </div> %>
+
+  <%# a button to trigger buttom sheet %>
+  <button type="button"
+          data-action="article#toggleBottomSheet" 
+          class="rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer">
+    <span><i class="fa-solid fa-paper-plane"></i> Submit</span>
+  </button>
+  <%# end of a button to trigger buttom sheet %>
+
+  <%# Overlay %>
+  <div data-article-target="overlay" class="z-20 fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+  <%# Bottom sheet %>
+  <div data-article-target="bottomSheet" 
+     class="z-20 fixed bottom-0 left-0 right-0 translate-y-full transform transition-transform duration-300 ease-in-out md:hidden">
+    <div class="bg-white border-t shadow-lg p-4 rounded-t-2xl">
+      <div class="flex flex-col items-center justify-center mb-28">
+        <h3 class="text-2xl text-gray-800 mb-3">Publish Article?</h3>
+        <p class="text-lg text-gray-500">You can delete it later, just relaxed okay :)</p>
+      </div>
+      <%= form.submit data: { article_target: "submit" }, class: "w-full rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium" %>
+    </div>
   </div>
+  <%# end of Bottom sheet %>
 <% end %>

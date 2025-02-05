@@ -1,13 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["preview", "input", "topic", "body", "submit"]
+  static targets = ["preview", "input", "topic", "body", "submit", "bottomSheet", "overlay"]
   static existingImages = []
   static values = {
     hasErrors: Boolean,
   }
 
   connect() {
+    this.overlayTarget.addEventListener("click", this.toggleBottomSheet.bind(this))
+
     console.log("Article is erorrs: ", this.hasErrorsValue)
     if (this.hasInputTarget) {
       this.inputTarget.addEventListener("change", this.handleNewImages.bind(this))
@@ -147,5 +149,16 @@ export default class extends Controller {
       <div class="absolute top-0 right-0 bg-white opacity-90 p-4 rounded-bl-md rounded-tr-md"></div>
     `
     return wrapper
+  }
+
+  toggleBottomSheet() {
+    // Only close if clicking overlay directly, not bottomsheet
+    if (event && event.target.closest('[data-article-target="bottomSheet"]')) {
+      return
+    }
+
+    this.bottomSheetTarget.classList.toggle("translate-y-full")
+    this.overlayTarget.classList.toggle("opacity-0")
+    this.overlayTarget.classList.toggle("pointer-events-none")
   }
 }
