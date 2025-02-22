@@ -45,6 +45,8 @@ services:
     networks:
       - article-network
     restart: unless-stopped
+    secrets:
+        - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -53,7 +55,6 @@ services:
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
       - MINIO_BUCKET=${MINIO_BUCKET}
       - MINIO_ENDPOINT=${MINIO_ENDPOINT}
-      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 
 networks:
   article-network:
