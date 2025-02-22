@@ -45,8 +45,6 @@ services:
     networks:
       - article-network
     restart: unless-stopped
-    secrets:
-      - rails_master_key
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -55,6 +53,7 @@ services:
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
       - MINIO_BUCKET=${MINIO_BUCKET}
       - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+      - SECRET_KEY_BASE=dummy
 
 networks:
   article-network:
@@ -62,7 +61,3 @@ networks:
 volumes:
   minio_data:
   postgres_data:  
-
-secrets:
-  rails_master_key:
-    file: ./config/credentials/production.key
