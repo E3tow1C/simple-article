@@ -27,8 +27,8 @@ test:
 default_production: &default_production
   adapter: postgresql
   encoding: unicode
-  username: <%= ENV.fetch("POSTGRES_USER") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
   host: db
   port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -37,16 +37,16 @@ default_production: &default_production
 production:
   primary:
     <<: *default_production
-    database: <%= ENV.fetch("POSTGRES_DB") %>
+    database: <%= ENV["POSTGRES_DB"] %>
   cache:
     <<: *default_production
-    database: <%= ENV.fetch("POSTGRES_DB") %>_cache
+    database: <%= ENV["POSTGRES_DB"] %>_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *default_production
-    database: <%= ENV.fetch("POSTGRES_DB") %>_queue
+    database: <%= ENV["POSTGRES_DB"] %>_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *default_production
-    database: <%= ENV.fetch("POSTGRES_DB") %>_cable
+    database: <%= ENV["POSTGRES_DB"] %>_cable
     migrations_paths: db/cable_migrate
