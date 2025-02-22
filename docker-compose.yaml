@@ -46,7 +46,7 @@ services:
       - article-network
     restart: unless-stopped
     secrets:
-        - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - rails_master_key
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -61,4 +61,8 @@ networks:
 
 volumes:
   minio_data:
-  postgres_data:    
+  postgres_data:  
+
+secrets:
+  rails_master_key:
+    file: ./config/credentials/production.key
