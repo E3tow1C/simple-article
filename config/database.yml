@@ -23,19 +23,28 @@ test:
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
+
+default_production: &default_production
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
 production:
   primary:
-    <<: *default
-    database: storage/production.sqlite3
+    <<: *default_production
+    database: <%= ENV.fetch("POSTGRES_DB")
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
+    <<: *default_production
+    database: <%= ENV.fetch("POSTGRES_DB") %>_cache
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
+    <<: *default_production
+    database: <%= ENV.fetch("POSTGRES_DB") %>_queue
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    <<: *default_production
+    database: <%= ENV.fetch("POSTGRES_DB") %>_cable
     migrations_paths: db/cable_migrate
